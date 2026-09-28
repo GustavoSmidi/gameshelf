@@ -9,3 +9,15 @@ A relational database was chosen because data integrity and efficient querying a
 ## Why PostgreSQL?
 
 PostgreSQL was chosen because it is sufficient for the current requirements of the GameShelf while offering a rich set of features for querying and data manipulation. It provides the relational capabilities required by the application, along with advanced support for complex queries, aggregations, and extensibility. This provides flexibility to accommodate more complex data requirements as the project evolves, without introducing unnecessary complexity at its current stage.
+
+## Database Architecture
+
+The following diagram represents the planned database architecture of the GameShelf. It provides a visual overview of the entities, relationships, and main constraints defined for the application.
+
+The architecture was designed before the database implementation, allowing the project's data structure and relationships to be defined in advance.
+
+![GameShelf Database Architecture](database-architecture.jpg)
+
+[View the interactive diagram in Miro](https://miro.com/app/board/uXjVHiXAC0c=/?share_link_id=920996169899)
+
+The diagram represents the database architecture, while the actual database schema is implemented incrementally through Flyway migrations.
