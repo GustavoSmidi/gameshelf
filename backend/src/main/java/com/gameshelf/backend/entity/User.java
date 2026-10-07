@@ -26,16 +26,18 @@ public class User implements UserDetails {
     @Column(name = "password_hash")
     private String passwordHash;
     private String email;
-    private UserRole role;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role = UserRole.USER;
 
     @Column(name = "email_verified")
-    private Boolean emailVerified;
+    private Boolean emailVerified = true;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt = LocalDateTime.now();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
