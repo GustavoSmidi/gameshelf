@@ -1,8 +1,11 @@
 package com.gameshelf.backend.controller;
 
+import com.gameshelf.backend.dto.request.LoginRequest;
 import com.gameshelf.backend.dto.request.RegisterUserRequest;
+import com.gameshelf.backend.dto.response.LoginResponse;
 import com.gameshelf.backend.dto.response.RegisterUserResponse;
 import com.gameshelf.backend.entity.User;
+import com.gameshelf.backend.service.AuthService;
 import com.gameshelf.backend.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final UserService userService;
+    private final AuthService authService;
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login (@Valid @RequestBody LoginRequest request) {
+
+        return ResponseEntity.ok(authService.login(request));
+    }
 
     @PostMapping("/register")
     public ResponseEntity<RegisterUserResponse> register(@Valid @RequestBody RegisterUserRequest request) {

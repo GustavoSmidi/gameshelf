@@ -9,3 +9,7 @@ spring:
     url: jdbc:postgresql://localhost:5432/gameshelf
     username: postgres
     password: ${DB_PASSWORD}
+
+logging:
+  level:
+    org.springframework.security: TRACE

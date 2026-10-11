@@ -31,7 +31,7 @@ public class User implements UserDetails {
     private UserRole role = UserRole.USER;
 
     @Column(name = "email_verified")
-    private Boolean emailVerified = true;
+    private Boolean emailVerified = false;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -41,31 +41,37 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         return List.of();
     }
 
     @Override
     public @Nullable String getPassword() {
-        return "";
+
+        return passwordHash;
     }
 
     @Override
     public boolean isAccountNonExpired() {
+
         return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
+
         return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
+
         return true;
     }
 
     @Override
     public boolean isEnabled() {
+
         return true;
     }
 }
