@@ -1,3 +1,5 @@
+import { Link } from "react-router"
+
 import { Button } from "../../components/ui/Button"
 import { Card } from "../../components/ui/Card"
 import { GoogleIcon } from "../../components/ui/GoogleIcon"
@@ -6,12 +8,11 @@ import { Input } from "../../components/ui/Input"
 export default function LoginPage() {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        // a lógica de login entra aqui depois
     }
 
     return (
         <div className="flex min-h-screen items-center justify-center px-4">
-            <Card className="max-w-lg bg-card-background" padding="lg">
+            <Card className="max-w-lg" padding="lg">
                 <div className="mb-8 text-center">
                     <h1 className="mb-3 text-xl font-semibold text-text">Welcome Back</h1>
                     <p className="text-sm text-text">
@@ -22,11 +23,7 @@ export default function LoginPage() {
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                     <Input
-                        label="Email"
-                        type="email"
-                        placeholder="Enter your email"
-                        autoComplete="email"
-                    />
+                        label="Email" type="email" placeholder="Enter your email" autoComplete="email"/>
 
                     <div className="flex flex-col gap-6">
                         <Input
@@ -40,9 +37,9 @@ export default function LoginPage() {
                                 <input type="checkbox" className="accent-primary" />
                                 Keep me signed in
                             </label>
-                            <a href="#" className="font-medium text-primary">
+                            <Link to="#" className="font-medium text-primary">
                                 Forgot your password?
-                            </a>
+                            </Link>
                         </div>
                     </div>
 
@@ -62,11 +59,11 @@ export default function LoginPage() {
                     <GoogleIcon className="size-5" />
                 </Button>
 
-                <p className="mt-6 text-center text-sm text-text-secondary">
+                <p className="mt-6 text-center text-sm text-text">
                     Don't have an account?{" "}
-                    <a href="#" className="font-medium text-primary">
+                    <Link to="/register" className="font-medium text-primary">
                         Sign up
-                    </a>
+                    </Link>
                 </p>
             </Card>
         </div>

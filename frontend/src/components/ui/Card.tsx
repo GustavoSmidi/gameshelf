@@ -20,7 +20,7 @@ export function Card({
     padding = "md",
 }: CardProps) {
     return (
-        <div className={clsx("w-full", paddings[padding], className)}>
+        <div className={clsx("bg-card-background","w-full", paddings[padding], className)}>
             {children}
         </div>
     )
