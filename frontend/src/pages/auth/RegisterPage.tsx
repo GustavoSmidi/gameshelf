@@ -14,7 +14,7 @@ export default function RegisterPage() {
             <Card className="max-w-lg" padding="lg">
                 <div className="mb-8 text-center">
                     <h1 className="mb-3 text-xl font-semibold text-text"> Welcome </h1>
-                    <p className="text-sm text-text"> 
+                    <p className="text-sm text-text">
                         Log in to continue your journey on {" "}
                         <span className="font-medium text-primary">
                             GameShelf
@@ -23,21 +23,20 @@ export default function RegisterPage() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-                    <Input label="Email" type="email" placeholder="Enter your email" autoComplete="email"/>
-                    <div className="flex flex-col gap-5 mt-5">
+                        <Input label="Username" placeholder="Enter your username" autoComplete="username" autoCapitalize="none" spellCheck={false} />
+                        <Input label="Email" type="email" placeholder="Enter your email" autoComplete="email" />
                         <Input label="Password" type="password" placeholder="Enter your password" autoComplete="new-password" />
                         <Input label="Repeat Password" type="password" placeholder="Repeat your password" autoComplete="new-password" />
-                    </div>
                     <Button type="submit" className="mt-3">
                         Register
                     </Button>
                 </form>
-                    <p className="mt-6 text-center text-sm text-text"> 
-                        Already have an account? {" "}
-                        <Link to="/login" className="font-medium text-primary"> 
+                <p className="mt-6 text-center text-sm text-text">
+                    Already have an account? {" "}
+                    <Link to="/login" className="font-medium text-primary">
                         Log in
-                        </Link>
-                    </p>
+                    </Link>
+                </p>
             </Card>
         </div>
     )

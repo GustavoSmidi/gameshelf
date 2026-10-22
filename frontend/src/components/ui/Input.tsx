@@ -4,9 +4,10 @@ import type { ComponentProps } from "react"
 
 type InputProps = ComponentProps<"input"> & {
     label?: string
+    error?: string
 }
 
-export function Input({ label, id, className, ...props }: InputProps) {
+export function Input({ label, error, id, className, ...props }: InputProps) {
     const generatedId = useId()
     const inputId = id ?? generatedId
 
@@ -25,6 +26,7 @@ export function Input({ label, id, className, ...props }: InputProps) {
                 )}
                 {...props}
             />
+            {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
     )
 }
