@@ -7,7 +7,7 @@ import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,24 +30,24 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role = UserRole.USER;
 
-    @Column(name = "email_verified")
-    private Boolean emailVerified = false;
-
     @Column(name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private Instant createdAt = Instant.now();
 
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    private Instant updatedAt = Instant.now();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         return List.of();
     }
 
     @Override
-    public @Nullable String getPassword() {
+    public String getUsername() {
+        return email;
+    }
 
+    @Override
+    public @Nullable String getPassword() {
         return passwordHash;
     }
 
