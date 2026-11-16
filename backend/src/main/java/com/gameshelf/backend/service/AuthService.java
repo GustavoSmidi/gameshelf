@@ -4,7 +4,6 @@ import com.gameshelf.backend.dto.request.LoginRequest;
 import com.gameshelf.backend.dto.response.LoginResponse;
 import com.gameshelf.backend.entity.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final AuthenticationManager authenticationManager;
-    private final TokenService tokenService;
+    private final JwtService jwtService;
 
     public LoginResponse login (LoginRequest request) {
 
@@ -23,7 +22,7 @@ public class AuthService {
         Authentication authentication = authenticationManager.authenticate(UsernameAndPassword);
 
         User user = (User) authentication.getPrincipal();
-        String token = tokenService.generateToken(user);
+        String token = jwtService.generateToken(user);
 
         return new LoginResponse(token);
     }

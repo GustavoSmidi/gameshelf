@@ -35,6 +35,9 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/verify-email").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/resend-verification").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/test-email").permitAll()
                         .anyRequest().authenticated())
                 .build();
     }

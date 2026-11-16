@@ -37,5 +37,5 @@ public class PendingRegistration {
     private Instant createdAt = Instant.now();
 
     @Column(name = "expires_At")
-    private Instant expiresAt = Instant.now().plusSeconds(180);
+    private Instant expiresAt;
 }

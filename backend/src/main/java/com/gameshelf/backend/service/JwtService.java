@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 
 @Service
-public class TokenService {
+public class JwtService {
 
     private String secret = "secret";
     Algorithm algorithm = Algorithm.HMAC256(secret);
