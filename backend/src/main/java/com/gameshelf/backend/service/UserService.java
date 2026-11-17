@@ -38,8 +38,6 @@ public class UserService implements UserDetailsService {
 
         String token = VerificationTokenUtils.generateToken();
         String tokenHash = VerificationTokenUtils.sha256(token);
-        String waitSecret = VerificationTokenUtils.generateToken();
-        String waitSecretHash = VerificationTokenUtils.sha256(waitSecret);
 
         PendingRegistration user = new PendingRegistration();
 
@@ -47,13 +45,12 @@ public class UserService implements UserDetailsService {
         user.setEmail(request.email());
         user.setPasswordHash(passwordEncoder.encode(request.password()));
         user.setTokenHash(tokenHash);
-        user.setWaitSecretHash(waitSecretHash);
         user.setExpiresAt(Instant.now().plus(15, ChronoUnit.MINUTES));
 
         PendingRegistration savedUser = pendingRegistrationRepository.save(user);
         System.out.println("Usuário criado: " + savedUser.getEmail());
         emailService.sendVerificationEmail(savedUser.getEmail(), token);
-        return new RegisterUserResponse(savedUser.getUsername(), savedUser.getEmail(), waitSecret);
+        return new RegisterUserResponse(savedUser.getUsername(), savedUser.getEmail());
     }
 
     @Transactional

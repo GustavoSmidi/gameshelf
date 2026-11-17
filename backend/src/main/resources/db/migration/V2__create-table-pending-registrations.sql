@@ -4,7 +4,6 @@ CREATE TABLE pending_registrations (
     password_hash VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     token_hash VARCHAR(64) NOT NULL,
-    wait_secret_hash VARCHAR(64) NOT NULL,
     expires_at TIMESTAMPTZ NOT NULL
 );
 

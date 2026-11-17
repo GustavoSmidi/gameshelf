@@ -30,9 +30,6 @@ public class PendingRegistration {
     @Column(name = "token_hash")
     private  String tokenHash;
 
-    @Column(name = "wait_secret_hash")
-    private String waitSecretHash;
-
     @Column(name = "expires_at")
     private Instant expiresAt;
 }
