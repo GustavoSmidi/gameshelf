@@ -2,5 +2,6 @@ package com.gameshelf.backend.dto.response;
 
 public record RegisterUserResponse(
         String username,
-        String email) {
+        String email,
+        String waitSecret) {
 }

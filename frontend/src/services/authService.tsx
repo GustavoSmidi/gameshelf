@@ -10,3 +10,7 @@ export async function registerUser (data:RegisterUserRequest): Promise<RegisterU
     const response = await api.post<RegisterUserResponse>("/auth/register", data)
     return response.data
 }
+
+export async function verifyEmail(token:string): Promise<void> {
+    await api.post("/auth/verify-email", { token });
+}

@@ -2,9 +2,9 @@ package com.gameshelf.backend.controller;
 
 import com.gameshelf.backend.dto.request.LoginRequest;
 import com.gameshelf.backend.dto.request.RegisterUserRequest;
+import com.gameshelf.backend.dto.request.VerifyEmailRequest;
 import com.gameshelf.backend.dto.response.LoginResponse;
 import com.gameshelf.backend.dto.response.RegisterUserResponse;
-import com.gameshelf.backend.entity.User;
 import com.gameshelf.backend.service.AuthService;
 import com.gameshelf.backend.service.UserService;
 import jakarta.validation.Valid;
@@ -33,8 +33,16 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<RegisterUserResponse> register(@Valid @RequestBody RegisterUserRequest request) {
 
-        User newUser = userService.register(request);
+        RegisterUserResponse response = userService.register(request);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new RegisterUserResponse(newUser.getUsername(), newUser.getEmail()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    @PostMapping("/verify-email")
+    public ResponseEntity<Void> verifyEmail(@Valid @RequestBody VerifyEmailRequest request) {
+
+        userService.verifyEmail(request);
+
+        return ResponseEntity.noContent().build();
     }
 }

@@ -5,8 +5,7 @@ CREATE TABLE pending_registrations (
     email VARCHAR(255) NOT NULL UNIQUE,
     token_hash VARCHAR(64) NOT NULL,
     wait_secret_hash VARCHAR(64) NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    expires_at TIMESTAMP NOT NULL
+    expires_at TIMESTAMPTZ NOT NULL
 );
 
 CREATE UNIQUE INDEX uq_pending_token_hash ON pending_registrations (token_hash);

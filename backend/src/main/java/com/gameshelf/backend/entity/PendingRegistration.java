@@ -33,9 +33,6 @@ public class PendingRegistration {
     @Column(name = "wait_secret_hash")
     private String waitSecretHash;
 
-    @Column(name = "created_at")
-    private Instant createdAt = Instant.now();
-
-    @Column(name = "expires_At")
+    @Column(name = "expires_at")
     private Instant expiresAt;
 }

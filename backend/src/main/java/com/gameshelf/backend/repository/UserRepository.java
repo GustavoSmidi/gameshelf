@@ -1,6 +1,5 @@
 package com.gameshelf.backend.repository;
 
-import com.gameshelf.backend.entity.PendingRegistration;
 import com.gameshelf.backend.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,4 +11,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<UserDetails> findUserByEmail(String email);
+
+    boolean existsByEmail (String email);
 }
