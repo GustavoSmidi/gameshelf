@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final UserService userService;
     private final AuthService authService;
 
     @PostMapping("/login")
@@ -34,7 +33,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<RegisterUserResponse> register(@Valid @RequestBody RegisterUserRequest request) {
 
-        RegisterUserResponse response = userService.register(request);
+        RegisterUserResponse response = authService.register(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -42,14 +41,14 @@ public class AuthController {
     @PostMapping("/verify-email")
     public ResponseEntity<Void> verifyEmail(@Valid @RequestBody VerifyEmailRequest request) {
 
-        userService.verifyEmail(request);
+        authService.verifyEmail(request);
 
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/resend-verification-email")
     public ResponseEntity<Void> resendVerificationEmail (@Valid @RequestBody ResendVerificationEmailRequest request) {
-        userService.resendVerificationEmail(request.email());
+        authService.resendVerificationEmail(request.email());
 
         return ResponseEntity.noContent().build();
     }
