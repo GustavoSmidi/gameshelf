@@ -48,7 +48,6 @@ public class UserService implements UserDetailsService {
         user.setExpiresAt(Instant.now().plus(15, ChronoUnit.MINUTES));
 
         PendingRegistration savedUser = pendingRegistrationRepository.save(user);
-        System.out.println("Usuário criado: " + savedUser.getEmail());
         emailService.sendVerificationEmail(savedUser.getEmail(), token);
         return new RegisterUserResponse(savedUser.getUsername(), savedUser.getEmail());
     }
@@ -56,14 +55,10 @@ public class UserService implements UserDetailsService {
     @Transactional
     public void verifyEmail (VerifyEmailRequest request) {
 
-        System.out.println("VERIFY EMAIL FOI CHAMADO");
-
         String hash = VerificationTokenUtils.sha256(request.token());
 
         PendingRegistration pendingUser = pendingRegistrationRepository.findByTokenHash(hash)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid verification token"));
-
-        System.out.println("Cadastro encontrado: " + pendingUser.getEmail());
 
         if (!pendingUser.getExpiresAt().isAfter(Instant.now())) {
             throw new IllegalArgumentException("Verification token expired");
@@ -84,6 +79,22 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(newUser);
         pendingRegistrationRepository.delete(pendingUser);
+    }
+
+    @Transactional
+    public void resendVerificationEmail (String email) {
+        PendingRegistration pendingUser = pendingRegistrationRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Pending registration not found"));
+
+        String token = VerificationTokenUtils.generateToken();
+        String tokenHash = VerificationTokenUtils.sha256(token);
+
+        pendingUser.setTokenHash(tokenHash);
+        pendingUser.setExpiresAt(Instant.now().plus(15, ChronoUnit.MINUTES));
+
+        pendingRegistrationRepository.save(pendingUser);
+
+        emailService.sendVerificationEmail(pendingUser.getEmail(), token);
     }
 
 }

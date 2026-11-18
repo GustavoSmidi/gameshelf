@@ -8,4 +8,6 @@ import java.util.Optional;
 public interface PendingRegistrationRepository extends JpaRepository<PendingRegistration, Integer> {
 
     Optional<PendingRegistration> findByTokenHash (String tokenHash);
+
+    Optional<PendingRegistration> findByEmail (String email);
 }

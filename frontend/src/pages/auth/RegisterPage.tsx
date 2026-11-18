@@ -28,7 +28,7 @@ export default function RegisterPage() {
                 email: data.email,
                 password: data.password
             })
-            navigate("/login")
+            navigate("/check-your-email", {state: { email: data.email }});
         } catch (err) {
             if (axios.isAxiosError(err) && err.response) {
                 const alreadyExists = err.response.status === 409

@@ -14,3 +14,7 @@ export async function registerUser (data:RegisterUserRequest): Promise<RegisterU
 export async function verifyEmail(token:string): Promise<void> {
     await api.post("/auth/verify-email", { token });
 }
+
+export async function resendVerificationEmail(email:string): Promise<void> {
+    await api.post("/auth/resend-verification-email", { email });
+}

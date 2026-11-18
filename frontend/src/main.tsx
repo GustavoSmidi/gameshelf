@@ -4,6 +4,7 @@ import './styles/global.css'
 import LoginPage from './pages/auth/LoginPage.tsx'
 import RegisterPage from './pages/auth/RegisterPage.tsx';
 import VerifyEmailPage from './pages/auth/VerifyEmailPage.tsx';
+import CheckYourEmailPage from "./pages/auth/CheckYourEmailPage.tsx";
 
 const root = document.getElementById("root")!;
 
@@ -13,6 +14,7 @@ ReactDOM.createRoot(root).render(
       <Route path='/login' element={<LoginPage />} />
       <Route path='/register' element={<RegisterPage />} />
       <Route path='/verify-email' element={<VerifyEmailPage />} />
+      <Route path='/check-your-email' element={<CheckYourEmailPage />} />
     </Routes>
   </BrowserRouter>,
 )

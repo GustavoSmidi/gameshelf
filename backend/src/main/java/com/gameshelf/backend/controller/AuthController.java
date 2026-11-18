@@ -2,6 +2,7 @@ package com.gameshelf.backend.controller;
 
 import com.gameshelf.backend.dto.request.LoginRequest;
 import com.gameshelf.backend.dto.request.RegisterUserRequest;
+import com.gameshelf.backend.dto.request.ResendVerificationEmailRequest;
 import com.gameshelf.backend.dto.request.VerifyEmailRequest;
 import com.gameshelf.backend.dto.response.LoginResponse;
 import com.gameshelf.backend.dto.response.RegisterUserResponse;
@@ -42,6 +43,13 @@ public class AuthController {
     public ResponseEntity<Void> verifyEmail(@Valid @RequestBody VerifyEmailRequest request) {
 
         userService.verifyEmail(request);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/resend-verification-email")
+    public ResponseEntity<Void> resendVerificationEmail (@Valid @RequestBody ResendVerificationEmailRequest request) {
+        userService.resendVerificationEmail(request.email());
 
         return ResponseEntity.noContent().build();
     }
