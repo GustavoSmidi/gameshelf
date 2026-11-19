@@ -17,7 +17,7 @@ export default function VerifyEmailPage() {
             }
 
             try {
-                await verifyEmail(token);
+                await verifyEmail({token});
                 setStatus("success");
             } catch (error) {
                 console.error("Error verifying email", error);

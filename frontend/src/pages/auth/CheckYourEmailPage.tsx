@@ -21,7 +21,7 @@ export default function CheckYourEmailPage() {
         setLoading(true);
         setMessage("");
 
-        await resendVerificationEmail(email);
+        await resendVerificationEmail({email});
 
         setMessage("A new verification email has been sent.");
         } catch {

@@ -58,7 +58,7 @@ export default function LoginPage() {
                                 <input type="checkbox" className="accent-primary" />
                                 Keep me signed in
                             </label>
-                            <Link to="#" className="font-medium text-primary">
+                            <Link to="/forgot-password" className="font-medium text-primary">
                                 Forgot your password?
                             </Link>
                         </div>

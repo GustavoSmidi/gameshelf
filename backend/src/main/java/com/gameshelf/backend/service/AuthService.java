@@ -2,12 +2,15 @@ package com.gameshelf.backend.service;
 
 import com.gameshelf.backend.dto.request.LoginRequest;
 import com.gameshelf.backend.dto.request.RegisterUserRequest;
+import com.gameshelf.backend.dto.request.ResetPasswordRequest;
 import com.gameshelf.backend.dto.request.VerifyEmailRequest;
 import com.gameshelf.backend.dto.response.LoginResponse;
 import com.gameshelf.backend.dto.response.RegisterUserResponse;
+import com.gameshelf.backend.entity.PasswordResetToken;
 import com.gameshelf.backend.entity.PendingRegistration;
 import com.gameshelf.backend.entity.User;
 import com.gameshelf.backend.entity.UserRole;
+import com.gameshelf.backend.repository.PasswordResetTokenRepository;
 import com.gameshelf.backend.repository.PendingRegistrationRepository;
 import com.gameshelf.backend.repository.UserRepository;
 import com.gameshelf.backend.util.VerificationTokenUtils;
@@ -32,6 +35,7 @@ public class AuthService {
     private final PendingRegistrationRepository pendingRegistrationRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
 
     public LoginResponse login (LoginRequest request) {
 
@@ -105,6 +109,51 @@ public class AuthService {
         pendingRegistrationRepository.save(pendingUser);
 
         emailService.sendVerificationEmail(pendingUser.getEmail(), token);
+    }
+
+    @Transactional
+    public void forgotPassword (String email) {
+        User user = userRepository.findUserByEmail(email).orElse(null);
+
+        if (user == null) return;
+
+        passwordResetTokenRepository.deleteByUser(user);
+
+        String token = VerificationTokenUtils.generateToken();
+        String tokenHash = VerificationTokenUtils.sha256(token);
+
+        PasswordResetToken resetToken = new PasswordResetToken();
+
+        resetToken.setUser(user);
+        resetToken.setTokenHash(tokenHash);
+        resetToken.setExpiresAt(Instant.now().plus(15, ChronoUnit.MINUTES));
+
+        passwordResetTokenRepository.save(resetToken);
+
+        emailService.sendResetPasswordEmail(user.getEmail(), token);
+    }
+
+    @Transactional
+    public void resetPassword (ResetPasswordRequest request) {
+        String tokenHash = VerificationTokenUtils.sha256(request.token());
+
+        PasswordResetToken resetToken = passwordResetTokenRepository
+                .findByTokenHash(tokenHash)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid or expired reset token"));
+
+        if (!resetToken.getExpiresAt().isAfter(Instant.now())) {
+            throw new IllegalArgumentException("Invalid or expired reset token");
+        }
+
+        User user = resetToken.getUser();
+
+        user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
+        user.setUpdatedAt(Instant.now());
+
+        userRepository.save(user);
+
+        passwordResetTokenRepository.delete(resetToken);
+
     }
 
 }

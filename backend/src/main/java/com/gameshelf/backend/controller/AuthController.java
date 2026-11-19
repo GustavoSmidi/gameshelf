@@ -1,13 +1,9 @@
 package com.gameshelf.backend.controller;
 
-import com.gameshelf.backend.dto.request.LoginRequest;
-import com.gameshelf.backend.dto.request.RegisterUserRequest;
-import com.gameshelf.backend.dto.request.ResendVerificationEmailRequest;
-import com.gameshelf.backend.dto.request.VerifyEmailRequest;
+import com.gameshelf.backend.dto.request.*;
 import com.gameshelf.backend.dto.response.LoginResponse;
 import com.gameshelf.backend.dto.response.RegisterUserResponse;
 import com.gameshelf.backend.service.AuthService;
-import com.gameshelf.backend.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -49,6 +45,21 @@ public class AuthController {
     @PostMapping("/resend-verification-email")
     public ResponseEntity<Void> resendVerificationEmail (@Valid @RequestBody ResendVerificationEmailRequest request) {
         authService.resendVerificationEmail(request.email());
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<Void> forgotPassword (@Valid @RequestBody ForgotPasswordRequest request) {
+        authService.forgotPassword(request.email());
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<Void> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+
+        authService.resetPassword(request);
 
         return ResponseEntity.noContent().build();
     }

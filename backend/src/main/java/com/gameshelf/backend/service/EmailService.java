@@ -29,4 +29,17 @@ public class EmailService {
 
         mailSender.send(message);
     }
+
+    public void sendResetPasswordEmail (String to, String token) {
+        String link = frontendUrl + "/reset-password?token=" + token;
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject("Reset your GameShelf password");
+        message.setText("Reset your GameShelf password!\n\n" + "Reset your password by opening this link:\n"
+                + link + "\n\nIf you didn't request a password reset, you can ignore this message.");
+
+        mailSender.send(message);
+    }
 }
