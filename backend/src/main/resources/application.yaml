@@ -5,6 +5,8 @@ spring:
   security:
     pepper: ${PASSWORD_PEPPER}
 
+  jwt: ${TOKEN_SECRET}
+
   datasource:
     url: jdbc:postgresql://localhost:5432/gameshelf
     username: postgres
