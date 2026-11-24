@@ -2,7 +2,24 @@ spring:
   application:
     name: backend
 
+  security:
+    pepper: ${PASSWORD_PEPPER}
+
+  jwt: ${TOKEN_SECRET}
+
   datasource:
     url: jdbc:postgresql://localhost:5432/gameshelf
     username: postgres
     password: ${DB_PASSWORD}
+
+  mail:
+    host: localhost
+    port: 1025
+
+app:
+  frontend-url: http://localhost:5173
+  mail:
+    from: noreply@gameshelf.local
+  verification:
+    pending-expiration-minutes: 3
+    resend-cooldown-seconds: 60

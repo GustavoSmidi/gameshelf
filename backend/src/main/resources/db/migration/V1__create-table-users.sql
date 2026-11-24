@@ -1,8 +1,9 @@
 CREATE TABLE users(
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    username VARCHAR(20) NOT NULL,
+    username VARCHAR(20) NOT NULL ,
     password_hash VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP NOT NULL
+    role VARCHAR(10) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL,
+    updated_at TIMESTAMPTZ NOT NULL
 );
